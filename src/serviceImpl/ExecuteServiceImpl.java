@@ -2,11 +2,17 @@
 package serviceImpl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import service.ExecuteService;
 import service.UserService;
 
-public class ExecuteServiceImpl implements ExecuteService {
+public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteService {
+
+	public ExecuteServiceImpl() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 请实现该方法

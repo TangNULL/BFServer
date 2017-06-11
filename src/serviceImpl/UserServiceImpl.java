@@ -1,21 +1,34 @@
 package serviceImpl;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
 import service.UserService;
 
-public class UserServiceImpl implements UserService{
+//UnicastRemoteObject用于导出的远程对象和获得与该远程对象通信的存根。 
+import java.rmi.server.UnicastRemoteObject;
 
+import javax.swing.JOptionPane; 
+
+
+public class UserServiceImpl  extends UnicastRemoteObject implements UserService{
+
+	public UserServiceImpl() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}//////////////////////////////????????????
+	public File NameFile=new File("E:\\学习\\大作业\\BFServer\\admin_code.txt");
 	@Override
 	public boolean login(String username, String password) throws RemoteException {
-		String NameAndWord=username+password;
+		String NameAndWord=username+"_"+password;
 		boolean result=false;
 		try{
-			File NameFile=new File("E:/学习/大作业/BFServer/admin_code","admin_code.File");
 			FileReader fileReader=new FileReader(NameFile);
 			BufferedReader reader=new BufferedReader(fileReader);
 			String line=null;
@@ -29,13 +42,43 @@ public class UserServiceImpl implements UserService{
 			}catch(IOException e){
 				e.printStackTrace();
 			 }
-			 
 		return result;
 	}
 
 	@Override
 	public boolean logout(String username) throws RemoteException {
 		return true;
+	}
+	
+	
+	@Override
+	public boolean register(String username,String password) throws RemoteException{
+		boolean Result=true;
+		try {
+			FileReader fileReader=new FileReader(NameFile);
+			BufferedReader reader=new BufferedReader(fileReader);
+			String Line=null;
+			while((Line=reader.readLine())!=null&&Line.contains("_")){
+				String[] NameAndPass=Line.split("_");
+				if(NameAndPass[0].equals(username)){//用户名重合
+					Result=false;
+					break;
+				}
+			}
+			if(Result==true){//无重复用户名
+				FileWriter writer=new FileWriter(NameFile,true);
+				writer.write("\r\n");
+				writer.write(username+"_"+password);
+				writer.close();
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return Result;
 	}
 
 }

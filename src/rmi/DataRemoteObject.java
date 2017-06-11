@@ -12,7 +12,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements IOService, 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4029039744279087114L;
+	private static final long serialVersionUID = 4029039744279087114L;//–Ú¡–ªØ
 	private IOService iOService;
 	private UserService userService;
 	protected DataRemoteObject() throws RemoteException {
@@ -48,6 +48,12 @@ public class DataRemoteObject extends UnicastRemoteObject implements IOService, 
 	public boolean logout(String username) throws RemoteException {
 		// TODO Auto-generated method stub
 		return userService.logout(username);
+	}
+
+	@Override
+	public boolean register(String username, String password) throws RemoteException {
+		// TODO Auto-generated method stub
+		return userService.register(username, password);
 	}
 
 }
