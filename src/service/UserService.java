@@ -12,4 +12,8 @@ public interface UserService extends Remote{
 	
 	public boolean register(String username,String password) throws RemoteException;
 	//这些方法必须被实现
+
+	public void setClient(String username) throws RemoteException;
+	
+	public String getClient() throws RemoteException;
 }

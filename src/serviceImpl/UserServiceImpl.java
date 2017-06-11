@@ -22,8 +22,9 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 	public UserServiceImpl() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
-	}//////////////////////////////????????????
-	public File NameFile=new File("E:\\学习\\大作业\\BFServer\\admin_code.txt");
+	}
+	public File NameFile=new File("E:\\学习\\大作业\\BFServer\\user_password.txt");
+	public String Client=null;
 	@Override
 	public boolean login(String username, String password) throws RemoteException {
 		String NameAndWord=username+"_"+password;
@@ -47,6 +48,7 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 
 	@Override
 	public boolean logout(String username) throws RemoteException {
+		this.Client=null;
 		return true;
 	}
 	
@@ -79,6 +81,18 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 			e1.printStackTrace();
 		}
 		return Result;
+	}
+
+	@Override
+	public void setClient(String username) throws RemoteException {
+		// TODO Auto-generated method stub
+		this.Client=username;
+	}
+
+	@Override
+	public String getClient() throws RemoteException {
+		// TODO Auto-generated method stub
+		return this.Client;
 	}
 
 }

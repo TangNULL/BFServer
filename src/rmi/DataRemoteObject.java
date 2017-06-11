@@ -55,5 +55,17 @@ public class DataRemoteObject extends UnicastRemoteObject implements IOService, 
 		// TODO Auto-generated method stub
 		return userService.register(username, password);
 	}
+	
+	@Override
+	public void setClient(String username) throws RemoteException{
+		// TODO Auto-generated method stub
+	    userService.setClient(username);
+	}
+
+	@Override
+	public String getClient() throws RemoteException {
+		// TODO Auto-generated method stub
+		return userService.getClient();
+	}
 
 }
