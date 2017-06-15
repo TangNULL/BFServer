@@ -5,19 +5,23 @@ import java.rmi.server.UnicastRemoteObject;
 
 import service.IOService;
 import service.UserService;
+import service.ExecuteService;
 import serviceImpl.IOServiceImpl;
 import serviceImpl.UserServiceImpl;
+import serviceImpl.ExecuteServiceImpl;
 
-public class DataRemoteObject extends UnicastRemoteObject implements IOService, UserService{
+public class DataRemoteObject extends UnicastRemoteObject implements IOService, UserService,ExecuteService{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4029039744279087114L;//–Ú¡–ªØ
 	private IOService iOService;
 	private UserService userService;
+	private ExecuteService executeService;
 	protected DataRemoteObject() throws RemoteException {
 		iOService = new IOServiceImpl();
 		userService = new UserServiceImpl();
+		executeService=new ExecuteServiceImpl();
 	}
 
 	@Override
@@ -66,6 +70,12 @@ public class DataRemoteObject extends UnicastRemoteObject implements IOService, 
 	public String getClient() throws RemoteException {
 		// TODO Auto-generated method stub
 		return userService.getClient();
+	}
+
+	@Override
+	public String execute(String code, String param) throws RemoteException {
+		// TODO Auto-generated method stub
+		return executeService.execute(code, param);
 	}
 
 }
