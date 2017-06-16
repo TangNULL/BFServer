@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import javax.swing.JOptionPane;
+
 import service.IOService;
 
 public class IOServiceImpl extends UnicastRemoteObject implements IOService{
@@ -17,11 +19,12 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	String prefix1="E:\\学习\\大作业\\BFServer\\";
-	String prefix2=".txt";
 	@Override
-	public boolean writeFile(String file, String userId, String fileName) {//修改文件
-		File f = new File(prefix1+userId + "_" + fileName+prefix2);
+	public boolean writeFile(String file, String filepath, String fileName) {//修改文件
+		File f = new File(filepath);
+		if(!f.exists()){
+			String filename=JOptionPane.showInputDialog(null, "并没有目标文件，请输入文件名以创建一个新文件也可以选择取消");
+		}
 		try {
 			FileWriter fw = new FileWriter(f, false);
 			fw.write(file);
@@ -35,11 +38,11 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 	}
 
 	@Override
-	public String readFile(String userId, String fileName) {
+	public String readFile(String filepath, String fileName) {
 		// TODO Auto-generated method stub
 		String result="";
 		try {
-			File myfile=new File(prefix1+userId + "_" + fileName+prefix2);
+			File myfile=new File(filepath+fileName);
 			FileReader fileReader= new FileReader(myfile);
 			BufferedReader buffer=new BufferedReader(fileReader);
 			String Line=null;
@@ -48,7 +51,7 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "文件不存在", "提示 ", JOptionPane.ERROR_MESSAGE);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,10 +60,10 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 	}
 
 	@Override
-	public String readFileList(String userId) {
+	public String readFileList(String filepath) {//不用这个
 		// TODO Auto-generated method stub
 		String result="";
-		File myfile=new File(prefix1+userId+prefix2);
+		File myfile=new File(filepath);
 		try {
 			FileReader fileReader=new FileReader(myfile);
 			BufferedReader buffer=new BufferedReader(fileReader);

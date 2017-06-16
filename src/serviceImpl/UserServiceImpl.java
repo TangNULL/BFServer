@@ -25,6 +25,8 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 	}
 	public File NameFile=new File("E:\\学习\\大作业\\BFServer\\user_password.txt");
 	public String Client=null;
+	public String Language=null;
+	public boolean wannaloginAgain=false;
 	@Override
 	public boolean login(String username, String password) throws RemoteException {
 		String NameAndWord=username+"_"+password;
@@ -93,6 +95,30 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 	public String getClient() throws RemoteException {
 		// TODO Auto-generated method stub
 		return this.Client;
+	}
+
+	@Override
+	public void setLanguage(String language) throws RemoteException {
+		// TODO Auto-generated method stub
+		this.Language=language;
+	}
+
+	@Override
+	public String getLanguage() throws RemoteException {
+		// TODO Auto-generated method stub
+		return this.Language;
+	}
+
+	@Override
+	public boolean loginAgain() throws RemoteException {
+		// TODO Auto-generated method stub
+		return this.wannaloginAgain;
+	}
+
+	@Override
+	public void setloginAgain(boolean wannaloginAgain) throws RemoteException {
+		// TODO Auto-generated method stub
+		this.wannaloginAgain=wannaloginAgain;
 	}
 
 }

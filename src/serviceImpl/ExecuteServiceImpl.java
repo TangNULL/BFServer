@@ -110,6 +110,14 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 			}
 		}
 		return result;
+		
+	}
+
+	@Override
+	public String executeOok(String code, String param) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 
 }

@@ -71,11 +71,39 @@ public class DataRemoteObject extends UnicastRemoteObject implements IOService, 
 		// TODO Auto-generated method stub
 		return userService.getClient();
 	}
+	
+	@Override
+	public void setLanguage(String language) throws RemoteException{
+		// TODO Auto-generated method stub
+	    userService.setLanguage(language);
+	}
+
+	@Override
+	public String getLanguage() throws RemoteException {
+		// TODO Auto-generated method stub
+		return userService.getLanguage();
+	}
 
 	@Override
 	public String execute(String code, String param) throws RemoteException {
 		// TODO Auto-generated method stub
 		return executeService.execute(code, param);
+	}
+	public String executeOok(String code,String param)throws RemoteException {
+		// TODO Auto-generated method stub
+		return executeService.executeOok(code, param);
+	}
+
+	@Override
+	public boolean loginAgain() throws RemoteException {
+		// TODO Auto-generated method stub
+		return userService.loginAgain();
+	}
+
+	@Override
+	public void setloginAgain(boolean wannaloginAgain) throws RemoteException {
+		// TODO Auto-generated method stub
+		userService.setloginAgain(wannaloginAgain);
 	}
 
 }
