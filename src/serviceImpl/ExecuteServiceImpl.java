@@ -21,10 +21,52 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 	@Override
 	public String execute(String code, String param) throws RemoteException {
 		// TODO Auto-generated method stub
+		StringBuffer codd=new StringBuffer();
+		StringBuffer temp=new StringBuffer();
+		if(code.contains("k")){
+			String[] split=code.split(" ");
+			for(String st:split){
+				temp.append(st);
+			}
+			code=temp.toString();
+			for(int i=0;i<=code.length()-1-7;i=i+8){
+				String str=code.substring(i, i+8);
+				switch(str){
+				case "Ook.Ook?":
+					str=">";
+					break;
+				case "Ook?Ook."	:
+					str="<";
+					break;
+				case "Ook.Ook.":
+					str="+";
+					break;
+				case "Ook!Ook!":
+					str="-";
+					break;
+				case "Ook!Ook.":
+					str=".";
+					break;
+				case "Ook.Ook!":
+					str=",";
+					break;
+				case "Ook!Ook?":
+					str="[";
+					break;
+				case "Ook?Ook!":
+					str="]";
+					break;
+				}
+				codd.append(str);
+			}
+			code=codd.toString();
+		}
 		String result="";
+		
 		int paramAlreadyUse=0;  //param已用的部分
+		
 		int ptr=0;  // myList中的指针
-		//int codeAlreadyUse=0;
+		
 		ArrayList<Integer> myList=new ArrayList<Integer>();
 		for(int i=0;i<code.length();i++){
 			char order=code.charAt(i);
@@ -51,6 +93,9 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 				break;
 				
 			case '+':  //指针对应的位置的值加一
+				if(myList.size()<ptr+1){
+					myList.add(0);
+				}
 				int numPlus=myList.get(ptr);
 				myList.set(ptr, ++numPlus);
 				break;
@@ -61,6 +106,9 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 				break;
 				
 			case '.':  //输出指针指向的单元内容（ASCII码）
+				if(myList.size()<ptr+1){
+					myList.add(0);
+				}
 				int m=myList.get(ptr);
 				char x=(char)m;
 				result=result+x;
@@ -112,12 +160,4 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 		return result;
 		
 	}
-
-	@Override
-	public String executeOok(String code, String param) throws RemoteException {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-
 }

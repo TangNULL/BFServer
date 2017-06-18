@@ -13,9 +13,4 @@ public interface ExecuteService extends Remote {
 	 * @throws RemoteException
 	 */
 	public String execute(String code, String param) throws RemoteException;
-	
-	public String executeOok(String code,String param)throws RemoteException;
-	
-	
-	
 }

@@ -23,17 +23,21 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 	public boolean writeFile(String file, String filepath, String fileName) {//修改文件
 		File f = new File(filepath);
 		if(!f.exists()){
-			String filename=JOptionPane.showInputDialog(null, "并没有目标文件，请输入文件名以创建一个新文件也可以选择取消");
-		}
-		try {
-			FileWriter fw = new FileWriter(f, false);
-			fw.write(file);
-			fw.flush();
-			fw.close();
-			return true;
-		} catch (IOException e) {
-			e.printStackTrace();
+			//String filename=JOptionPane.showInputDialog(null, "并没有目标文件，请输入文件名以创建一个新文件也可以选择取消");
+			JOptionPane.showMessageDialog(null, "文件不存在");
 			return false;
+		}
+		else{
+			try {
+				FileWriter fw = new FileWriter(f, false);
+				fw.write(file);
+				fw.flush();
+				fw.close();
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 	}
 
@@ -43,20 +47,26 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 		String result="";
 		try {
 			File myfile=new File(filepath+fileName);
-			FileReader fileReader= new FileReader(myfile);
-			BufferedReader buffer=new BufferedReader(fileReader);
-			String Line=null;
-			while((Line=buffer.readLine())!=null){
-				result+=Line;
+			if(!myfile.exists()){
+				return null;
+			}
+			else{
+				FileReader fileReader= new FileReader(myfile);
+				BufferedReader buffer=new BufferedReader(fileReader);
+				String Line=null;
+				while((Line=buffer.readLine())!=null){
+					result+=Line;
+				}
+				return result;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, "文件不存在", "提示 ", JOptionPane.ERROR_MESSAGE);
+			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return result;
 	}
 
 	@Override

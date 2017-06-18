@@ -89,11 +89,7 @@ public class DataRemoteObject extends UnicastRemoteObject implements IOService, 
 		// TODO Auto-generated method stub
 		return executeService.execute(code, param);
 	}
-	public String executeOok(String code,String param)throws RemoteException {
-		// TODO Auto-generated method stub
-		return executeService.executeOok(code, param);
-	}
-
+	
 	@Override
 	public boolean loginAgain() throws RemoteException {
 		// TODO Auto-generated method stub
