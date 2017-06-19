@@ -121,7 +121,7 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 				else{
 					try{
 						if(myList.get(ptr)==null){
-							myList.set(ptr, 0);
+							myList.set(ptr, param.charAt(0)+0);
 						}
 					}catch(IndexOutOfBoundsException e){
 						myList.add(0);
@@ -138,8 +138,18 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 					continue;
 				}
 				else{ // 向后跳转
-					while(code.charAt(i)!=']'){
-						i++;
+					int count=0;
+					for(int k=i+1;k<code.length();k++){
+						if(code.charAt(k)=='['){
+							count++;
+						}
+						else if(code.charAt(k)==']'&&count!=0){
+							count--;
+						}
+						else if(code.charAt(k)==']'&&count==0){
+							i=k;
+							break;
+						}
 					}
 				}
 				//在code中 ] 在i位置 
@@ -150,8 +160,18 @@ public class ExecuteServiceImpl extends UnicastRemoteObject implements ExecuteSe
 					continue;
 				}
 				else{ // 向前跳转
-					while(code.charAt(i)!='['){
-						i--;
+					int count=0;
+					for(int k=i-1;k>=0;k--){
+						if(code.charAt(k)==']'){
+							count++;
+						}
+						else if(code.charAt(k)=='['&&count!=0){
+							count--;
+						}
+						else if(code.charAt(k)=='['&&count==0){
+							i=k;
+							break;
+						}
 					}
 				}
 				break;
