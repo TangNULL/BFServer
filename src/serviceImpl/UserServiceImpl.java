@@ -71,7 +71,7 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 			}
 			if(Result==true){//无重复用户名
 				FileWriter writer=new FileWriter(NameFile,true);
-				writer.write("\r\n");
+				writer.write(System.lineSeparator());
 				writer.write(username+"_"+password);
 				writer.close();
 			}
