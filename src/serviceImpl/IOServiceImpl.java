@@ -11,6 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import javax.swing.JOptionPane;
 
+import rmi.RemoteHelper;
 import service.IOService;
 
 public class IOServiceImpl extends UnicastRemoteObject implements IOService{
@@ -70,28 +71,22 @@ public class IOServiceImpl extends UnicastRemoteObject implements IOService{
 	}
 
 	@Override
-	public String readFileList(String filepath) {//不用这个
+	public String readFileList(String filepath) {
 		// TODO Auto-generated method stub
-		String result="";
-		File myfile=new File(filepath);
-		try {
-			FileReader fileReader=new FileReader(myfile);
-			BufferedReader buffer=new BufferedReader(fileReader);
-			String Line=null;
-			try {
-				while((Line=buffer.readLine())!=null){
-					result+=Line+"\n";
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		File file=new File(filepath);
+		String myStr="";
+		if(file.exists()){
+			String[] FileName=file.list();
+			String newline = System.getProperty("line.separator");
+			for(String str:FileName){
+				if(str.contains("."))
+					myStr+=str+newline;
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		return result;
+		else{
+			myStr=null;
+		}
+		return myStr;
 	}
 	
 }
