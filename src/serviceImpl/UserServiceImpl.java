@@ -97,28 +97,5 @@ public class UserServiceImpl  extends UnicastRemoteObject implements UserService
 		return this.Client;
 	}
 
-	@Override
-	public void setLanguage(String language) throws RemoteException {
-		// TODO Auto-generated method stub
-		this.Language=language;
-	}
-
-	@Override
-	public String getLanguage() throws RemoteException {
-		// TODO Auto-generated method stub
-		return this.Language;
-	}
-
-	@Override
-	public boolean loginAgain() throws RemoteException {
-		// TODO Auto-generated method stub
-		return this.wannaloginAgain;
-	}
-
-	@Override
-	public void setloginAgain(boolean wannaloginAgain) throws RemoteException {
-		// TODO Auto-generated method stub
-		this.wannaloginAgain=wannaloginAgain;
-	}
 
 }
